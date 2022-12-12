@@ -1,3 +1,4 @@
+import 'package:explore_webapp/config/constants.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,21 +9,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<bool> _isHovering = [false, false, false, false];
+  final List<bool> _isHovering = [false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(screenSize.width, 1000),
+        preferredSize: Size(screenWidth(context), 1000),
         child: Container(
-          color: Colors.blue,
+          color: blueColor,
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
               children: [
-                const Text('EXPLORE'),
+                const Text(exploreTitle),
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -41,35 +41,62 @@ class _HomePageState extends State<HomePage> {
                               'Discover',
                               style: TextStyle(
                                 color: _isHovering[0]
-                                    ? Colors.blue.shade200
-                                    : Colors.white,
+                                    ? hoveringColor1
+                                    : whiteColor,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            // For showing an underline on hover
+                            Visibility(
+                              maintainAnimation: true,
+                              maintainState: true,
+                              maintainSize: true,
+                              visible: _isHovering[0],
+                              child: Container(
+                                height: 2,
+                                width: 20,
+                                color: Colors.white,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(width: screenSize.width / 20),
+                      SizedBox(width: screenWidth(context) / 20),
                       InkWell(
                         onTap: () {},
-                        onHover: (value) {},
-                        child: const Text(
-                          'Contact Us',
-                          style: TextStyle(color: Colors.black),
+                        onHover: (value) {
+                          setState(() {
+                            _isHovering[1] = value;
+                          });
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Contact Us',
+                              style: TextStyle(
+                                color: _isHovering[1]
+                                    ? hoveringColor1
+                                    : whiteColor,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            // For showing an underline on hover
+                            Visibility(
+                              maintainAnimation: true,
+                              maintainState: true,
+                              maintainSize: true,
+                              visible: _isHovering[1],
+                              child: Container(
+                                height: 2,
+                                width: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 5),
-                      // For showing an underline on hover
-                      Visibility(
-                        maintainAnimation: true,
-                        maintainState: true,
-                        maintainSize: true,
-                        visible: _isHovering[0],
-                        child: Container(
-                          height: 2,
-                          width: 20,
-                          color: Colors.white,
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -81,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 SizedBox(
-                  width: screenSize.width / 50,
+                  width: screenWidth(context) / 50,
                 ),
                 InkWell(
                   onTap: () {},
