@@ -1,3 +1,5 @@
+import 'package:explore_webapp/config/constants.dart';
+
 import '../pages/homepage.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Explore',
+      title: exploreTitle,
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
