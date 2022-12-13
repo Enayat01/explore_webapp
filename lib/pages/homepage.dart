@@ -1,4 +1,7 @@
-import 'package:explore_webapp/config/constants.dart';
+import '../config/constants.dart';
+import '../widgets/featured_card.dart';
+import '../widgets/floating_access_card.dart';
+import '../widgets/top_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,120 +12,70 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<bool> _isHovering = [false, false, false, false];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(screenWidth(context), 1000),
-        child: Container(
-          color: blueColor,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Row(
+      extendBodyBehindAppBar: true,
+      appBar: const CustomTopBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
               children: [
-                const Text(exploreTitle),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        onHover: (value) {
-                          setState(() {
-                            _isHovering[0] = value;
-                          });
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Discover',
-                              style: TextStyle(
-                                color: _isHovering[0]
-                                    ? hoveringColor1
-                                    : whiteColor,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            // For showing an underline on hover
-                            Visibility(
-                              maintainAnimation: true,
-                              maintainState: true,
-                              maintainSize: true,
-                              visible: _isHovering[0],
-                              child: Container(
-                                height: 2,
-                                width: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: screenWidth(context) / 20),
-                      InkWell(
-                        onTap: () {},
-                        onHover: (value) {
-                          setState(() {
-                            _isHovering[1] = value;
-                          });
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Contact Us',
-                              style: TextStyle(
-                                color: _isHovering[1]
-                                    ? hoveringColor1
-                                    : whiteColor,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            // For showing an underline on hover
-                            Visibility(
-                              maintainAnimation: true,
-                              maintainState: true,
-                              maintainSize: true,
-                              visible: _isHovering[1],
-                              child: Container(
-                                height: 2,
-                                width: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                    ],
-                  ),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
                 SizedBox(
-                  width: screenWidth(context) / 50,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(color: Colors.black),
+                  /// image below the top bar (cover image)
+                  child: SizedBox(
+                    height: screenHeight(context) * 0.45,
+                    width: screenWidth(context),
+                    child: Image.asset(
+                      'assets/images/cover.jpg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
+                Column(
+                  children: [
+                    const FloatingAccessCard(),
+                    Column(
+                      children: [
+                        SizedBox(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              top: screenHeight(context) * 0.06,
+                              left: screenWidth(context) / 15,
+                              right: screenWidth(context) / 15,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  featuredHeading,
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 40,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    featuredSubtitle,
+                                    textAlign: TextAlign.end,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const FeaturedCard(),
+                      ],
+                    ),
+                  ],
+                )
               ],
             ),
-          ),
+          ],
         ),
       ),
-      body: Container(),
     );
   }
 }
