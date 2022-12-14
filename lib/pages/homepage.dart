@@ -22,15 +22,13 @@ class _HomePageState extends State<HomePage> {
           children: [
             Stack(
               children: [
+                /// image below the top bar (cover image)
                 SizedBox(
-                  /// image below the top bar (cover image)
-                  child: SizedBox(
-                    height: screenHeight(context) * 0.45,
-                    width: screenWidth(context),
-                    child: Image.asset(
-                      'assets/images/cover.jpg',
-                      fit: BoxFit.cover,
-                    ),
+                  height: screenHeight(context) * 0.45,
+                  width: screenWidth(context),
+                  child: Image.asset(
+                    'assets/images/cover.jpg',
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Column(
@@ -38,6 +36,7 @@ class _HomePageState extends State<HomePage> {
                     const FloatingAccessCard(),
                     Column(
                       children: [
+                        ///Featured heading text row
                         SizedBox(
                           child: Padding(
                             padding: EdgeInsets.only(
@@ -46,8 +45,7 @@ class _HomePageState extends State<HomePage> {
                               right: screenWidth(context) / 15,
                             ),
                             child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: const [
                                 Text(
                                   featuredHeading,
@@ -56,11 +54,8 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: 40,
                                   ),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    featuredSubtitle,
-                                    textAlign: TextAlign.end,
-                                  ),
+                                Text(
+                                  featuredSubtitle,
                                 ),
                               ],
                             ),

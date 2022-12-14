@@ -24,8 +24,8 @@ class _FeaturedCardState extends State<FeaturedCard> {
             (int pageIndex) => Column(
               children: [
                 SizedBox(
-                  height: screenWidth(context) / 6,
-                  width: screenWidth(context) / 3.8,
+                  height: screenWidth(context) * 0.15,
+                  width: screenWidth(context) * 0.25,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.asset(
@@ -36,7 +36,7 @@ class _FeaturedCardState extends State<FeaturedCard> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                    top: screenHeight(context) / 70,
+                    top: screenHeight(context) / 40,
                   ),
                   child: Text(
                     featuredCardTitles[pageIndex],
