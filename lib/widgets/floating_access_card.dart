@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../config/constants.dart';
+import '../config/responsive.dart';
 
 class FloatingAccessCard extends StatefulWidget {
   const FloatingAccessCard({Key? key}) : super(key: key);
@@ -62,19 +63,57 @@ class _FloatingAccessCardState extends State<FloatingAccessCard> {
           left: screenWidth(context) / 5,
           right: screenWidth(context) / 5,
         ),
-        child: Card(
-          elevation: 5,
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: screenHeight(context) / 50,
-              bottom: screenHeight(context) / 50,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: generateRowElements(),
-            ),
-          ),
-        ),
+        child: ResponsiveWidget.isSmallScreen(context)
+            ? Column(
+                children: [
+                  ...Iterable<int>.generate(floatingCardItems.length).map(
+                    (int pageIndex) => Padding(
+                      padding: EdgeInsets.only(top: screenHeight(context) / 80),
+                      child: Card(
+                        elevation: 4,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: screenHeight(context) / 45,
+                              bottom: screenHeight(context) / 45,
+                              left: screenWidth(context) / 20),
+                          child: Row(
+                            children: [
+                              Icon(
+                                floatingCardIcons[pageIndex],
+                                color: Colors.blueGrey,
+                              ),
+                              SizedBox(width: screenWidth(context) / 20),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                onTap: () {},
+                                child: Text(
+                                  floatingCardItems[pageIndex],
+                                  style: const TextStyle(
+                                      color: Colors.blueGrey, fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Card(
+                elevation: 5,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: screenHeight(context) / 50,
+                    bottom: screenHeight(context) / 50,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: generateRowElements(),
+                  ),
+                ),
+              ),
       ),
     );
   }
