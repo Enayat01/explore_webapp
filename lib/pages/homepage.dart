@@ -5,7 +5,7 @@ import '../config/constants.dart';
 import '../config/responsive.dart';
 import '../widgets/featured_card.dart';
 import '../widgets/floating_access_card.dart';
-import '../widgets/top_bar.dart';
+import '../widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,26 +40,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: ResponsiveWidget.isSmallScreen(context)
-          ? AppBar(
-              backgroundColor: Colors.blueGrey.shade900.withOpacity(_opacity),
-              elevation: 0,
-              title: Text(
-                'EXPLORE',
-                style: TextStyle(
-                  color: Colors.blueGrey.shade100,
-                  fontSize: 20,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 3,
-                ),
-              ),
-            )
+          ? mobileAppBar(_opacity)
           : PreferredSize(
               preferredSize: Size(screenWidth(context), 1000),
-              child: CustomTopBar(_opacity),
+              child: WebAppBar(_opacity),
             ),
       drawer: const AppDrawer(),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           children: [
             Stack(
@@ -135,38 +123,38 @@ class _HomePageState extends State<HomePage> {
             /// Destinations heading text
             ResponsiveWidget.isSmallScreen(context)
                 ? Container(
-              padding: EdgeInsets.only(
-                top: screenHeight(context) / 20,
-                bottom: screenHeight(context) / 20,
-              ),
-              width: screenWidth(context),
-              child: const Text(
-                destinationHeading,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            )
-                :Padding(
-              padding: EdgeInsets.only(
-                top: screenHeight(context) * .10,
-                bottom: screenHeight(context) * .05,
-              ),
-              child: const Text(
-                destinationHeading,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 40,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+                    padding: EdgeInsets.only(
+                      top: screenHeight(context) / 20,
+                      bottom: screenHeight(context) / 20,
+                    ),
+                    width: screenWidth(context),
+                    child: const Text(
+                      destinationHeading,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: EdgeInsets.only(
+                      top: screenHeight(context) * .10,
+                      bottom: screenHeight(context) * .05,
+                    ),
+                    child: const Text(
+                      destinationHeading,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
             const ImageCarousel(),
-            SizedBox(height: screenHeight(context) / 10),
+            SizedBox(height: screenHeight(context) * 0.10),
             const Footer(),
           ],
         ),

@@ -21,10 +21,8 @@ class _ImageCarouselState extends State<ImageCarousel> {
   List<Widget> generateImageTiles() {
     return destinationImages
         .map(
-          (element) => Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-            ),
+          (element) => ClipRRect(
+            borderRadius: BorderRadius.circular(8),
             child: Image.asset(
               element,
               fit: BoxFit.cover,
@@ -70,9 +68,14 @@ class _ImageCarouselState extends State<ImageCarousel> {
             child: Text(
               placesList[_currentIndex],
               style: TextStyle(
-                fontSize: screenWidth(context) * .04,
+                fontSize: ResponsiveWidget.isSmallScreen(context)
+                    ? screenWidth(context) * .06
+                    : screenWidth(context) * .04,
                 fontFamily: 'Electrolize',
                 letterSpacing: 8,
+                fontWeight: ResponsiveWidget.isSmallScreen(context)
+                    ? FontWeight.bold
+                    : FontWeight.normal,
               ),
             ),
           ),
@@ -80,7 +83,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
         /// Bottom floating card
         ResponsiveWidget.isSmallScreen(context)
-            ? Container()
+            ? const SizedBox()
             : AspectRatio(
                 aspectRatio: 17 / 9,
                 child: Align(

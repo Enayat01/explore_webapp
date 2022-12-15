@@ -60,8 +60,12 @@ class _FloatingAccessCardState extends State<FloatingAccessCard> {
       child: Padding(
         padding: EdgeInsets.only(
           top: screenHeight(context) * 0.40,
-          left: screenWidth(context) / 5,
-          right: screenWidth(context) / 5,
+          left: ResponsiveWidget.isSmallScreen(context)
+              ? screenWidth(context) * 0.10
+              : screenWidth(context) * 0.20,
+          right: ResponsiveWidget.isSmallScreen(context)
+              ? screenWidth(context) * 0.10
+              : screenWidth(context) * 0.20,
         ),
         child: ResponsiveWidget.isSmallScreen(context)
             ? Column(

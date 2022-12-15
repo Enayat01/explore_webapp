@@ -19,8 +19,11 @@ double screenWidth(BuildContext context) {
 const exploreTitle = 'EXPLORE';
 const discover = 'Discover';
 const contactUs = 'Contact Us';
+const signIn = 'Sign In';
 const signUp = 'Sign Up';
 const login = 'Login';
+const emailAddress = 'Email address';
+const password = 'Password';
 const featuredHeading = 'Featured';
 const featuredSubtitle = 'Unique wildlife tours & destinations';
 const destinationHeading = 'Destinations diversity';

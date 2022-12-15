@@ -1,17 +1,40 @@
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
+import 'package:explore_webapp/widgets/sign_in_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../config/constants.dart';
 
-class CustomTopBar extends StatefulWidget {
-  const CustomTopBar(this.opacity, {Key? key}) : super(key: key);
+AppBar mobileAppBar(double opacity) {
+  return AppBar(
+    backgroundColor: Colors.blueGrey.shade900.withOpacity(opacity),
+    elevation: 0,
+    centerTitle: true,
+    title: Text(
+      'EXPLORE',
+      style: TextStyle(
+        color: Colors.blueGrey.shade100,
+        fontSize: 20,
+        fontFamily: 'Montserrat',
+        fontWeight: FontWeight.w400,
+        letterSpacing: 3,
+      ),
+    ),
+    actions: [
+      EasyDynamicThemeBtn(),
+    ],
+  );
+}
+
+class WebAppBar extends StatefulWidget {
+  const WebAppBar(this.opacity, {Key? key}) : super(key: key);
   final double opacity;
 
   @override
-  State<CustomTopBar> createState() => _CustomTopBarState();
+  State<WebAppBar> createState() => _WebAppBarState();
 }
 
-class _CustomTopBarState extends State<CustomTopBar> {
-  final List<bool> _isHovering = [false, false, false, false];
+class _WebAppBarState extends State<WebAppBar> {
+  final List<bool> _isHovering = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -109,34 +132,26 @@ class _CustomTopBarState extends State<CustomTopBar> {
                   ],
                 ),
               ),
+              EasyDynamicThemeBtn(),
+              SizedBox(
+                width: screenWidth(context) / 50,
+              ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const SignInDialog(),
+                  );
+                },
                 onHover: (value) {
                   setState(() {
                     _isHovering[2] = value;
                   });
                 },
                 child: Text(
-                  signUp,
+                  signIn,
                   style: TextStyle(
-                    color: _isHovering[2] ? hoveringColor1 : whiteColor,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: screenWidth(context) / 50,
-              ),
-              InkWell(
-                onTap: () {},
-                onHover: (value) {
-                  setState(() {
-                    _isHovering[3] = value;
-                  });
-                },
-                child: Text(
-                  login,
-                  style: TextStyle(
-                      color: _isHovering[3] ? hoveringColor1 : whiteColor),
+                      color: _isHovering[2] ? hoveringColor1 : whiteColor),
                 ),
               ),
             ],
