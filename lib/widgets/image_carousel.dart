@@ -83,7 +83,45 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
         /// Bottom floating card
         ResponsiveWidget.isSmallScreen(context)
-            ? const SizedBox()
+            ? AspectRatio(
+                aspectRatio: 17 / 10,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FittedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          for (int item = 0; item < placesList.length; item++)
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              onHover: (value) {
+                                setState(() {
+                                  value
+                                      ? _isHovering[item] = true
+                                      : _isHovering[item] = false;
+                                });
+                              },
+                              onTap: () {
+                                _controller.animateToPage(item);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: CircleAvatar(
+                                    radius: _isSelected[item] ? 8 : 5,
+                                    backgroundColor: _isSelected[item]
+                                        ? Colors.blueGrey
+                                        : Colors.grey),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
             : AspectRatio(
                 aspectRatio: 17 / 9,
                 child: Align(
@@ -168,7 +206,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
                     ),
                   ),
                 ),
-              )
+              ),
       ],
     );
   }
